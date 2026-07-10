@@ -4,6 +4,7 @@ import Carousel from "./components/Carousel";
 import SaleProducts from "./components/SaleProducts";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ProductSell from "./pages/ProductSell";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/sell" element={<ProductSell />} />
+
       </Routes>
     </BrowserRouter>
   );
