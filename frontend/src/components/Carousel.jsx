@@ -22,10 +22,10 @@ function Carousel() {
         >
             {images.map((img, index) => (
                 <img
-                    src={img}
-                    alt={`slide-${index}`}
-                    className="w-full h-full flex-shrink-0 object-cover object-center"
-                />
+    src={img}
+    alt={`slide-${index}`}
+    className="w-full h-full flex-shrink-0 object-contain object-center bg-black"
+/>
             ))}
         </div>
 
