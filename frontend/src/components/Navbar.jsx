@@ -1,28 +1,148 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Search, User, Heart, ShoppingCart, Loader2 } from "lucide-react";
 
 function Navbar() {
-    return (
-        <>
-        <div className="bg-gray-800 px-10 py-2">
+  const [query, setQuery] = useState("");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
-            <div className="flex justify-between  items-center">
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!query.trim()) return;
 
-                <div className="flex gap-10">
+    setLoading(true);
+    setHasSearched(true);
 
-                    <p className="text-2xl text-white font-bold">MarketPlace</p>
-                    <input type="text" placeholder="Search items" className="border  rounded-sm p-3 w-80 h-8 bg-white"></input>
-                </div>
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/search?q=${encodeURIComponent(query)}`
+      );
+      const data = await res.json();
+      setProducts(data);
+    } catch (err) {
+      console.error(err);
+      setProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                <div className="flex text-white gap-10 font-bold">
-
-                    <p>Profile</p>
-                    <p>Wishlist</p>
-                    <p>Cart</p>
-                </div>
+   return (
+    <>
+      {/* Top navigation */}
+      <header className="sticky top-0 z-50 bg-white border-b border-slate-200">
+        <div className="px-6 md:px-10 py-3">
+          <div className="flex items-center justify-between gap-6">
+            {/* Logo */}
+            <Link
+              to="/"
+              className="text-xl font-semibold tracking-tight text-slate-900 whitespace-nowrap"
+            >
+              Market<span className="text-teal-700">Place</span>
+            </Link>
+ 
+            {/* Search */}
+            <form
+              onSubmit={handleSearch}
+              className="flex-1 max-w-xl hidden sm:block"
+            >
+              <div className="relative">
+                {/* <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /> */}
+                <input
+                  type="text"
+                  placeholder="Search items"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-full h-10 pl-9 pr-4 text-sm rounded-md border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600 transition"
+                />
+              </div>
+            </form>
+ 
+            {/* Actions */}
+            <nav className="flex items-center gap-6 text-slate-600">
+              <button className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
+                {/* <UserIcon className="w-5 h-5" /> */}
+                <span className="text-xs font-medium hidden md:block">Profile</span>
+              </button>
+              <button className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
+                {/* <HeartIcon className="w-5 h-5" /> */}
+                <span className="text-xs font-medium hidden md:block">Wishlist</span>
+              </button>
+              <button className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
+                {/* <CartIcon className="w-5 h-5" /> */}
+                <span className="text-xs font-medium hidden md:block">Cart</span>
+              </button>
+            </nav>
+          </div>
+ 
+          {/* Search on small screens */}
+          <form onSubmit={handleSearch} className="mt-3 sm:hidden">
+            <div className="relative">
+              {/* <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /> */}
+              <input
+                type="text"
+                placeholder="Search items"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full h-10 pl-9 pr-4 text-sm rounded-md border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600 transition"
+              />
             </div>
+          </form>
         </div>
-        </>
-    )
+      </header>
+ 
+      {/* Search results */}
+      {hasSearched && (
+        <div className="px-6 md:px-10 py-6 bg-slate-50 min-h-[120px]">
+          {loading ? (
+            <div className="flex items-center gap-2 text-slate-500 text-sm">
+              {/* <SpinnerIcon className="w-4 h-4" /> */}
+              Searching…
+            </div>
+          ) : products.length === 0 ? (
+            <p className="text-sm text-slate-500">
+              No results for "{query}". Try a different search term.
+            </p>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {products.map((p, index) => (
+                <Link
+                  to={`/productDetail/${p._id}`}
+                  key={p._id || index}
+                  className="group block bg-white rounded-lg border border-slate-200 overflow-hidden hover:border-teal-600 hover:shadow-sm transition"
+                >
+                  <div className="aspect-square w-full bg-slate-100 overflow-hidden">
+                    {p.image ? (
+                      <img
+                        src={p.image}
+                        alt={p.productName}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-xs text-slate-400">
+                        No image
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-3">
+                    <h3 className="text-sm font-medium text-slate-900 truncate group-hover:text-teal-700">
+                      {p.productName}
+                    </h3>
+                    <p className="text-sm text-slate-500 mt-1">₹{p.productPrice}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
 }
+ 
 
-export default Navbar
+
+export default Navbar;
