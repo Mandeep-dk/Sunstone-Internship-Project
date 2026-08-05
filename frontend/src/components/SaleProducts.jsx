@@ -35,12 +35,12 @@ function SaleProducts() {
         <h2 className="text-xl font-semibold tracking-tight text-slate-900">
           Recently Added
         </h2>
-        <Link
+        {/* <Link
           to="/products"
           className="text-sm font-medium text-teal-700 hover:text-teal-800 transition"
         >
           View all
-        </Link>
+        </Link> */}
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
