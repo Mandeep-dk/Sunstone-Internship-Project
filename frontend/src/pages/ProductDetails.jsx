@@ -31,7 +31,9 @@ function DetailsSkeleton() {
 
 function ProductDetails() {
     const { id } = useParams();
-    const API = `http://localhost:5000/api/getProduct/${id}`;
+    const API1 = import.meta.env.VITE_API_URL;
+
+    const API = `${API1}/api/getProduct/${id}`;
 
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);

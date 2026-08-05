@@ -25,7 +25,9 @@ function ProductSell() {
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const fileInputRef = useRef(null);
-    const API = 'http://localhost:5000/api/upload';
+    const API1 = import.meta.env.VITE_API_URL;
+
+    const API = `${API1}/api/upload`;
 
     const handleImageChange = (file) => {
         if (!file) return;

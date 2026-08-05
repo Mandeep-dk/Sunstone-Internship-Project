@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../auth/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Navbar from "../components/Navbar";
+const API = import.meta.env.VITE_API_URL;
 
 function Wishlist() {
   const [userId, setUserId] = useState(null);
@@ -32,7 +33,7 @@ function Wishlist() {
         console.log("Fetching wishlist for:", userId);
 
         const res = await fetch(
-          `http://localhost:5000/api/wishlist/${userId}`
+          `${API}/api/wishlist/${userId}`
         );
 
         const data = await res.json();

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function SaleProducts() {
-  const API = "http://localhost:5000/api/getProducts";
+  const API1 = import.meta.env.VITE_API_URL;
+
+  const API = `${API1}/api/getProducts1`;
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
