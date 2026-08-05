@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import { auth } from '../auth/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+
 
 const CONDITION_COLORS = {
     'New': 'bg-[#0F6B5C] text-white',
@@ -33,6 +36,39 @@ function ProductDetails() {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [userId, setUserUid] = useState(null);
+
+    const [isWishlisted, setIsWishlisted] = useState(false);
+    const [wishlistLoading, setWishlistLoading] = useState(false);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log(user.uid);
+                setUserUid(user.uid);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
+    // Check whether this product is already in the user's wishlist
+    useEffect(() => {
+        if (!userId || !product?._id) return;
+
+        const checkWishlist = async () => {
+            try {
+                const res = await fetch(
+                    `http://localhost:5000/api/wishlist/check/${userId}/${product._id}`
+                );
+                const data = await res.json();
+                setIsWishlisted(!!data.isWishlisted);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        checkWishlist();
+    }, [userId, product]);
 
     useEffect(() => {
         const getProduct = async () => {
@@ -54,16 +90,48 @@ function ProductDetails() {
     }, [id])
 
     const handleShare = async () => {
-    try {
-        await navigator.share({
-            title: product.productName,
-            text: product.productDescription,
-            url: window.location.href
-        });
-    } catch (err) {
-        console.log(err);
+        try {
+            await navigator.share({
+                title: product.productName,
+                text: product.productDescription,
+                url: window.location.href
+            });
+        } catch (err) {
+            console.log(err);
+        }
+
+    };
+
+    const handleWishlist = async (productId) => {
+        if (isWishlisted || wishlistLoading) return;
+
+        if (!userId) {
+            alert("Please log in to add items to your wishlist.");
+            return;
+        }
+
+        setWishlistLoading(true);
+        try {
+            const res = await fetch("http://localhost:5000/api/wishlist/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ userId, productId }),
+            });
+            const data = await res.json();
+
+            if (!res.ok) throw new Error(data.message || "Failed to add to wishlist");
+
+            setIsWishlisted(true);
+        } catch (err) {
+            console.log(err);
+            alert(err.message || "Something went wrong. Please try again.");
+        } finally {
+            setWishlistLoading(false);
+        }
     }
-};
+
     return (
         <>
             <Navbar />
@@ -131,8 +199,20 @@ function ProductDetails() {
                                         <button className="flex-1 px-6 py-3 rounded-lg bg-[#1B1F23] text-white font-medium hover:bg-[#0F6B5C] transition-colors">
                                             Message seller
                                         </button>
-                                        <button className="px-6 py-3 rounded-lg border border-[#D3D7DD] text-[#1B1F23] font-medium hover:border-[#0F6B5C] transition-colors">
-                                            Save
+                                        <button
+                                            onClick={() => handleWishlist(product._id)}
+                                            disabled={isWishlisted || wishlistLoading}
+                                            className={`px-6 py-3 rounded-lg border font-medium transition-colors ${
+                                                isWishlisted
+                                                    ? "border-[#0F6B5C] bg-[#0F6B5C]/10 text-[#0F6B5C] cursor-default"
+                                                    : "border-[#D3D7DD] text-[#1B1F23] hover:border-[#0F6B5C] disabled:opacity-60"
+                                            }`}
+                                        >
+                                            {isWishlisted
+                                                ? "✓ Added to wishlist"
+                                                : wishlistLoading
+                                                ? "Adding…"
+                                                : "Add to wishlist"}
                                         </button>
                                         <button onClick={handleShare} className="px-6 py-3 rounded-lg border border-[#D3D7DD] text-[#1B1F23] font-medium hover:border-[#0F6B5C] transition-colors">
                                             Share

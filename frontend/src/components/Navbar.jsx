@@ -62,14 +62,14 @@ function Navbar() {
  
             {/* Actions */}
             <nav className="flex items-center gap-6 text-slate-600">
-              <button className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
+              <Link to="/sell" className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
                 {/* <UserIcon className="w-5 h-5" /> */}
-                <span className="text-xs font-medium hidden md:block">Profile</span>
-              </button>
-              <button className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
+                <span className="text-xs font-medium hidden md:block">List items</span>
+              </Link>
+              <Link to="/wishlist" className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
                 {/* <HeartIcon className="w-5 h-5" /> */}
                 <span className="text-xs font-medium hidden md:block">Wishlist</span>
-              </button>
+              </Link>
               <button className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
                 {/* <CartIcon className="w-5 h-5" /> */}
                 <span className="text-xs font-medium hidden md:block">Cart</span>

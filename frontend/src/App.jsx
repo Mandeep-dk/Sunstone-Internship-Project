@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import ProductSell from "./pages/ProductSell";
 import ProductBrowsing from "./pages/ProductBrowsing";
 import ProductDetails from "./pages/ProductDetails";
+import Wishlist from "./pages/Wishlist";
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +28,7 @@ function App() {
         <Route path="/sell" element={<ProductSell />} />
         <Route path="/productBrowse" element={<ProductBrowsing />} />
         <Route path="/productDetail/:id" element={<ProductDetails />} />
+        <Route path="/wishlist" element={<Wishlist />} />
 
       </Routes>
     </BrowserRouter>

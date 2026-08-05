@@ -1,49 +1,38 @@
-import React, { useState } from 'react'
-import image1 from '../assets/image1.png'
-import image2 from '../assets/image2.jpeg'
-import image3 from '../assets/image3.jpeg'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Carousel() {
-    const [current, setCurrent] = useState(0);
-    const images = [image1, image2, image3];
-
-    const nextSlide = () => {
-        setCurrent((current + 1) % images.length);
-    }
-
-    const prevSlide = () => {
-        setCurrent((current - 1 + images.length) % images.length);
-    }
-
     return (
-        <div className="relative w-full  h-[140px] sm:h-[180px] md:h-[220px] lg:h-[260px] overflow-hidden">      <div
-            className="flex h-full transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${current * 100}%)` }}
-        >
-            {images.map((img, index) => (
-                <img
-    src={img}
-    alt={`slide-${index}`}
-    className="w-full h-full flex-shrink-0 object-contain object-center bg-black"
-/>
-            ))}
-        </div>
-
-            <button
-                onClick={prevSlide}
-                className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-9 h-9 flex items-center justify-center transition"
-            >
-                ‹
-            </button>
-            <button
-                onClick={nextSlide}
-                className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-9 h-9 flex items-center justify-center transition"
-            >
-                ›
-            </button>
-
-
-        </div>
+        <section className="bg-slate-900">
+            <div className="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-24 text-center">
+                <p className="text-xs font-semibold tracking-[0.2em] uppercase text-teal-400 mb-4">
+                    Buy &amp; sell locally
+                </p>
+                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white leading-tight">
+                    Great finds, closer than
+                    <br className="hidden sm:block" />
+                    you think
+                </h1>
+                <p className="text-slate-400 text-base md:text-lg mt-5 max-w-xl mx-auto">
+                    Browse thousands of listings from sellers near you, or list
+                    something of your own in minutes.
+                </p>
+                <div className="mt-8 flex items-center justify-center gap-3">
+                    <Link
+                        to="/products"
+                        className="px-6 py-3 rounded-md bg-teal-600 text-white text-sm font-medium hover:bg-teal-500 transition"
+                    >
+                        Start browsing
+                    </Link>
+                    <Link
+                        to="/sell"
+                        className="px-6 py-3 rounded-md border border-slate-600 text-slate-200 text-sm font-medium hover:border-slate-400 hover:text-white transition"
+                    >
+                        Sell an item
+                    </Link>
+                </div>
+            </div>
+        </section>
     )
 }
 
