@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function SaleProducts() {
   const API1 = import.meta.env.VITE_API_URL;
 
-  const API = `${API1}/api/getProducts1`;
+  const API = `${API1}/api/getProducts`;
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
