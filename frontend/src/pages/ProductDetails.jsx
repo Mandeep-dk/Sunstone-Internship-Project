@@ -279,7 +279,12 @@ function ProductDetails() {
                                     </div>
 
                                     <div className="mt-auto grid grid-cols-2 sm:flex sm:flex-row gap-3">
-                                        <button className="col-span-2 sm:flex-1 px-4 sm:px-6 py-3 rounded-lg bg-[#1B1F23] text-white text-sm sm:text-base font-medium hover:bg-[#0F6B5C] transition-colors">
+                                        <button onClick={() =>
+    window.open(
+      "https://wa.me/918822184839?text=Hi%20I%20am%20interested%20in%20your%20product",
+      "_blank"
+    )
+  } className="col-span-2 sm:flex-1 px-4 sm:px-6 py-3 rounded-lg bg-[#1B1F23] text-white text-sm sm:text-base font-medium hover:bg-[#0F6B5C] transition-colors">
                                             Message seller
                                         </button>
                                         <button onClick={handlePayment} className="col-span-2 sm:flex-1 px-4 sm:px-6 py-3 rounded-lg bg-[#1B1F23] text-white text-sm sm:text-base font-medium hover:bg-[#0F6B5C] transition-colors">
