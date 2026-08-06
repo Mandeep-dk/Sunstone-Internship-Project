@@ -54,13 +54,13 @@ function Wishlist() {
     <>
       <Navbar />
 
-      <section className="px-6 md:px-10 py-8 max-w-6xl mx-auto">
-        <h1 className="text-xl font-semibold tracking-tight text-slate-900 mb-6">
+   <section className="px-4 sm:px-6 md:px-10 py-6 sm:py-8 max-w-6xl mx-auto">
+        <h1 className="text-lg sm:text-xl font-semibold tracking-tight text-slate-900 mb-4 sm:mb-6">
           Wishlist
         </h1>
 
         {loading && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}

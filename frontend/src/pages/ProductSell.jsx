@@ -75,14 +75,14 @@ function ProductSell() {
         <>
             <Navbar />
             <div className="min-h-screen bg-[#F4F5F7]">
-                <div className="max-w-4xl mx-auto px-6 py-12">
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
-                    <div className="mb-8">
+                    <div className="mb-6 sm:mb-8">
                         <p className="font-mono text-xs tracking-[0.2em] uppercase text-[#0F6B5C] mb-2">New listing</p>
-                        <h3 className="font-serif text-4xl md:text-5xl font-bold text-[#1B1F23]">
+                        <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#1B1F23]">
                             List your item
                         </h3>
-                        <p className="text-[#5B6470] mt-2 max-w-lg">
+                        <p className="text-sm sm:text-base text-[#5B6470] mt-2 max-w-lg">
                             Fill in the details below. Clear photos and honest descriptions sell faster.
                         </p>
                     </div>
@@ -90,13 +90,13 @@ function ProductSell() {
                     <form onSubmit={handleReq} className="relative bg-white rounded-2xl shadow-sm border border-[#E4E7EB] overflow-hidden md:grid md:grid-cols-[280px_1px_1fr]">
 
                         {/* Image / photo panel */}
-                        <div className="p-8 flex flex-col">
+                        <div className="p-4 sm:p-8 flex flex-col">
                             <label className="font-mono text-xs tracking-[0.15em] uppercase text-[#5B6470] mb-3">Photo</label>
                             <div
                                 onClick={() => fileInputRef.current?.click()}
                                 onDrop={handleDrop}
                                 onDragOver={(e) => e.preventDefault()}
-                                className="group cursor-pointer flex-1 min-h-[220px] rounded-xl border-2 border-dashed border-[#C9CED6] hover:border-[#0F6B5C] transition-colors flex items-center justify-center overflow-hidden bg-[#FAFAFA]"
+                                className="group cursor-pointer flex-1 min-h-[180px] sm:min-h-[220px] rounded-xl border-2 border-dashed border-[#C9CED6] hover:border-[#0F6B5C] transition-colors flex items-center justify-center overflow-hidden bg-[#FAFAFA]"
                             >
                                 {imagePreview ? (
                                     <img src={imagePreview} alt="Product preview" className="w-full h-full object-cover" />

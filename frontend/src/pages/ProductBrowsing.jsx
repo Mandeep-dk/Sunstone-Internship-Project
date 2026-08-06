@@ -29,8 +29,8 @@ function ProductBrowsing() {
     return (
         <>
             <Navbar />
-            <div className="max-w-6xl mx-auto px-6 py-10">
-                <h3 className="font-bold text-4xl mb-8">Browse products</h3>
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+                <h3 className="font-bold text-2xl sm:text-4xl mb-6 sm:mb-8">Browse products</h3>
 
                 {loading && <p className="text-gray-500">Loading products...</p>}
                 {error && <p className="text-red-500">Failed to load products.</p>}

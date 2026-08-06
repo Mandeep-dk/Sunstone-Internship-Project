@@ -4,6 +4,7 @@ import showProductRoute from './routes/showProducts.js';
 import productDetail from './routes/productDetail.js';
 import searchRoute from './routes/search.js';
 import wishlistRoute from './routes/wishlist.js';
+import paymentRoute from './routes/payment.js'
 import cors from "cors";
 import connectDB from "./config/db.js";
 
@@ -18,6 +19,7 @@ app.use("/api/getProducts", showProductRoute);
 app.use("/api", productDetail)
 app.use("/api/search", searchRoute);
 app.use("/api/wishlist", wishlistRoute);
+app.use("/api/payment", paymentRoute);
 
 app.listen(5000,()=>{
     console.log(`Server listening on 5000`)

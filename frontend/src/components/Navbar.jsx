@@ -29,27 +29,27 @@ function Navbar() {
     }
   };
 
-   return (
+  return (
     <>
       {/* Top navigation */}
       <header className="sticky top-0 z-50 bg-white border-b border-slate-200">
-        <div className="px-6 md:px-10 py-3">
-          <div className="flex items-center justify-between gap-6">
+        <div className="px-4 sm:px-6 md:px-10 py-3">
+          <div className="flex items-center justify-between gap-3 sm:gap-6">
             {/* Logo */}
             <Link
               to="/"
-              className="text-xl font-semibold tracking-tight text-slate-900 whitespace-nowrap"
+              className="text-lg sm:text-xl font-semibold tracking-tight text-slate-900 whitespace-nowrap"
             >
               Market<span className="text-teal-700">Place</span>
             </Link>
- 
-            {/* Search */}
+
+            {/* Search - visible from sm up */}
             <form
               onSubmit={handleSearch}
               className="flex-1 max-w-xl hidden sm:block"
             >
               <div className="relative">
-                {/* <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /> */}
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="text"
                   placeholder="Search items"
@@ -59,28 +59,24 @@ function Navbar() {
                 />
               </div>
             </form>
- 
+
             {/* Actions */}
-            <nav className="flex items-center gap-6 text-slate-600">
+            <nav className="flex items-center gap-3 sm:gap-6 text-slate-600 shrink-0">
               <Link to="/sell" className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
-                {/* <UserIcon className="w-5 h-5" /> */}
+                <User className="w-5 h-5 md:hidden" />
                 <span className="text-xs font-medium hidden md:block">List items</span>
               </Link>
               <Link to="/wishlist" className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
-                {/* <HeartIcon className="w-5 h-5" /> */}
+                <Heart className="w-5 h-5 md:hidden" />
                 <span className="text-xs font-medium hidden md:block">Wishlist</span>
               </Link>
-              <button className="flex flex-col items-center gap-0.5 hover:text-slate-900 transition">
-                {/* <CartIcon className="w-5 h-5" /> */}
-                <span className="text-xs font-medium hidden md:block">Cart</span>
-              </button>
             </nav>
           </div>
- 
+
           {/* Search on small screens */}
           <form onSubmit={handleSearch} className="mt-3 sm:hidden">
             <div className="relative">
-              {/* <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /> */}
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search items"
@@ -92,13 +88,13 @@ function Navbar() {
           </form>
         </div>
       </header>
- 
+
       {/* Search results */}
       {hasSearched && (
-        <div className="px-6 md:px-10 py-6 bg-slate-50 min-h-[120px]">
+        <div className="px-4 sm:px-6 md:px-10 py-4 sm:py-6 bg-slate-50 min-h-[120px]">
           {loading ? (
             <div className="flex items-center gap-2 text-slate-500 text-sm">
-              {/* <SpinnerIcon className="w-4 h-4" /> */}
+              <Loader2 className="w-4 h-4 animate-spin" />
               Searching…
             </div>
           ) : products.length === 0 ? (
@@ -106,7 +102,7 @@ function Navbar() {
               No results for "{query}". Try a different search term.
             </p>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
               {products.map((p, index) => (
                 <Link
                   to={`/productDetail/${p._id}`}
@@ -127,11 +123,11 @@ function Navbar() {
                       </div>
                     )}
                   </div>
-                  <div className="p-3">
-                    <h3 className="text-sm font-medium text-slate-900 truncate group-hover:text-teal-700">
+                  <div className="p-2 sm:p-3">
+                    <h3 className="text-xs sm:text-sm font-medium text-slate-900 truncate group-hover:text-teal-700">
                       {p.productName}
                     </h3>
-                    <p className="text-sm text-slate-500 mt-1">₹{p.productPrice}</p>
+                    <p className="text-xs sm:text-sm text-slate-500 mt-1">₹{p.productPrice}</p>
                   </div>
                 </Link>
               ))}
@@ -142,7 +138,5 @@ function Navbar() {
     </>
   );
 }
- 
-
 
 export default Navbar;

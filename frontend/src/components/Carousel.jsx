@@ -18,12 +18,7 @@ function Carousel() {
                     something of your own in minutes.
                 </p>
                 <div className="mt-8 flex items-center justify-center gap-3">
-                    <Link
-                        to="/products"
-                        className="px-6 py-3 rounded-md bg-teal-600 text-white text-sm font-medium hover:bg-teal-500 transition"
-                    >
-                        Start browsing
-                    </Link>
+                  
                     <Link
                         to="/sell"
                         className="px-6 py-3 rounded-md border border-slate-600 text-slate-200 text-sm font-medium hover:border-slate-400 hover:text-white transition"

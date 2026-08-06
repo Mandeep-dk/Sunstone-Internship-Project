@@ -30,20 +30,14 @@ function SaleProducts() {
   }, []);
 
   return (
-    <section className="px-6 md:px-10 mt-16">
-      <div className="flex items-center justify-between mb-5">
-        <h2 className="text-xl font-semibold tracking-tight text-slate-900">
+    <section className="px-4 sm:px-6 md:px-10 mt-10 sm:mt-16">
+      <div className="flex items-center justify-between mb-4 sm:mb-5">
+        <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-slate-900">
           Recently Added
         </h2>
-        {/* <Link
-          to="/products"
-          className="text-sm font-medium text-teal-700 hover:text-teal-800 transition"
-        >
-          View all
-        </Link> */}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
         {loading &&
           Array.from({ length: 4 }).map((_, i) => (
             <div
