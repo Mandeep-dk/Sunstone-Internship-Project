@@ -40,7 +40,7 @@ function Navbar() {
               to="/"
               className="text-lg sm:text-xl font-semibold tracking-tight text-slate-900 whitespace-nowrap"
             >
-              Market<span className="text-teal-700">Place</span>
+              Re<span className="text-teal-700">Cart</span>
             </Link>
 
             {/* Search - visible from sm up */}
